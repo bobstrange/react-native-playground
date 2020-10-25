@@ -26,6 +26,7 @@ const ProfilePage = ({ navigation }) => {
           navigation.goBack()
         }}
       />
+      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
     </View>
   )
 }
