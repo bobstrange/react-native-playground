@@ -15,9 +15,16 @@ const ProfilePage = ({ navigation }) => {
         source={{ uri: 'https://avatars3.githubusercontent.com/u/1381585' }}
         style={styles.profileImage}
       />
+
       <Button
         title="Show profile page again"
         onPress={onShowProfilePageButtonPressed}
+      />
+      <Button
+        title="Go back"
+        onPress={() => {
+          navigation.goBack()
+        }}
       />
     </View>
   )
@@ -36,6 +43,7 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 200,
     height: 200,
+    marginBottom: 20,
   },
 })
 
