@@ -1,7 +1,11 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image } from 'react-native'
+import { StyleSheet, View, Text, Image, Button } from 'react-native'
 
-const ProfilePage = () => {
+const ProfilePage = ({ navigation }) => {
+  const onShowProfilePageButtonPressed = () => {
+    navigation.navigate('Profile', {})
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.profileDescription}>
@@ -10,6 +14,10 @@ const ProfilePage = () => {
       <Image
         source={{ uri: 'https://avatars3.githubusercontent.com/u/1381585' }}
         style={styles.profileImage}
+      />
+      <Button
+        title="Show profile page again"
+        onPress={onShowProfilePageButtonPressed}
       />
     </View>
   )
