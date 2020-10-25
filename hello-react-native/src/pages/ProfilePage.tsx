@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, Button } from 'react-native'
 
 const ProfilePage = ({ navigation }) => {
   const onShowProfilePageButtonPressed = () => {
-    navigation.navigate('Profile', {})
+    navigation.push('Profile', {})
   }
 
   return (
