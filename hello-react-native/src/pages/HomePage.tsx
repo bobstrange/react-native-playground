@@ -14,6 +14,10 @@ const HomePage = ({ navigation }) => {
         title="Go to profile page (navigate)"
         onPress={onGoToProfileButtonPressed}
       />
+      <Button
+        title="Show ScrollPage"
+        onPress={() => navigation.navigate('ScrollPage')}
+      />
       <PizzaTranslator />
     </View>
   )
