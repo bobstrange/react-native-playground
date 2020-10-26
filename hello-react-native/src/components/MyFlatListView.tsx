@@ -12,7 +12,11 @@ type MyFlatListViewProps = {
 
 const MyFlatListView = ({ data }: MyFlatListViewProps) => {
   const renderItem: ListRenderItem<MyFlatListViewItem> = ({ item }) => {
-    return <Text style={styles.listItem}>{item.key}</Text>
+    return (
+      <View>
+        <Text style={styles.listItem}>{item.key}</Text>
+      </View>
+    )
   }
   return (
     <View style={styles.container}>

@@ -19,8 +19,8 @@ const HomePage = ({ navigation }) => {
         onPress={() => navigation.navigate('ScrollPage')}
       />
       <Button
-        title="Show FlatListPage"
-        onPress={() => navigation.navigate('FlatListPage')}
+        title="Show ListPage"
+        onPress={() => navigation.navigate('ListPage')}
       />
 
       <PizzaTranslator />

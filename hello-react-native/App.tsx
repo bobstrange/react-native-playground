@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { HomePage } from './src/pages/HomePage'
 import { ProfilePage } from './src/pages/ProfilePage'
 import { ScrollPage } from './src/pages/ScrollPage'
-import { FlatListPage } from './src/pages/FlatListPage'
+import { ListPage } from './src/pages/ListPage'
 
 const Stack = createStackNavigator()
 
@@ -19,7 +19,7 @@ const App = () => {
         />
         <Stack.Screen name="Profile" component={ProfilePage} />
         <Stack.Screen name="ScrollPage" component={ScrollPage} />
-        <Stack.Screen name="FlatListPage" component={FlatListPage} />
+        <Stack.Screen name="ListPage" component={ListPage} />
       </Stack.Navigator>
     </NavigationContainer>
   )
