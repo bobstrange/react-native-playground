@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Button, Text, View } from 'react-native'
 import { MyFlatListView } from '../components/MyFlatListView'
+import { MySectionListView } from '../components/MySectionListView'
 
-const listPageDummyData = [
+const flatListDummyData = [
   { key: 'Devin' },
   { key: 'Dan' },
   { key: 'Dominic' },
@@ -13,6 +14,14 @@ const listPageDummyData = [
   { key: 'Jillian' },
   { key: 'Jimmy' },
   { key: 'Julie' },
+]
+
+const sectionListDummyData = [
+  { title: 'D', data: ['Devin', 'Dan', 'Dominic'] },
+  {
+    title: 'J',
+    data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie'],
+  },
 ]
 
 type ListType = 'flat' | 'section'
@@ -46,9 +55,9 @@ const ListPage = () => {
   const renderList = () => {
     switch (listType) {
       case 'flat':
-        return <MyFlatListView data={listPageDummyData} />
+        return <MyFlatListView data={flatListDummyData} />
       case 'section':
-        return <Text>Section List</Text>
+        return <MySectionListView data={sectionListDummyData} />
       default:
         const neverHere: never = listType
         return neverHere
