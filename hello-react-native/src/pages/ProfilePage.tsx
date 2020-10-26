@@ -17,7 +17,7 @@ const ProfilePage = ({ navigation }) => {
       />
 
       <Button
-        title="Show profile page again"
+        title="Show profile page again (Push)"
         onPress={onShowProfilePageButtonPressed}
       />
       <Button

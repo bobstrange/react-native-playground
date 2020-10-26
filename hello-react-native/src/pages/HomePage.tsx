@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
+import { PizzaTranslator } from '../components/PizzaTranslator'
 
 const HomePage = ({ navigation }) => {
   const onGoToProfileButtonPressed = () => {
@@ -9,7 +10,11 @@ const HomePage = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>This is a home page</Text>
-      <Button title="Go to profile page" onPress={onGoToProfileButtonPressed} />
+      <Button
+        title="Go to profile page (navigate)"
+        onPress={onGoToProfileButtonPressed}
+      />
+      <PizzaTranslator />
     </View>
   )
 }
