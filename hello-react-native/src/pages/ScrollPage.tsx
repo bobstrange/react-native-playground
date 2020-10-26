@@ -1,7 +1,7 @@
 import React from 'react'
 import { MyScrollView } from '../components/MyScrollView'
 
-export default function ScrollPage() {
+const ScrollPage = () => {
   return <MyScrollView />
 }
 

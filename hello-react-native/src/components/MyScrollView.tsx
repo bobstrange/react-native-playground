@@ -7,7 +7,7 @@ const logo = {
   height: 64,
 }
 
-export default function MyScrollView() {
+const MyScrollView = () => {
   return (
     <ScrollView
       contentContainerStyle={{
