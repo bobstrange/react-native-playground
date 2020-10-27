@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { ListRenderItem, Text } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 
-const renderItem = ({ item }) => {
+const renderItem: ListRenderItem<ListItem> = ({ item }) => {
   return (
     <Text>
       {item.title}, {item.releaseYear}
@@ -10,6 +10,16 @@ const renderItem = ({ item }) => {
   )
 }
 
-export const MovieList = ({ data }) => {
+type ListItem = {
+  id: number
+  title: string
+  releaseYear: string
+}
+
+type Props = {
+  data: ListItem[]
+}
+
+export const MovieList: React.FC<Props> = ({ data }) => {
   return <FlatList data={data} renderItem={renderItem} />
 }
