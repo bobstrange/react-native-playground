@@ -5,6 +5,7 @@ import { HomePage } from './src/pages/HomePage'
 import { ProfilePage } from './src/pages/ProfilePage'
 import { ScrollPage } from './src/pages/ScrollPage'
 import { ListPage } from './src/pages/ListPage'
+import { FetchDataPage } from 'pages/FetchDataPage'
 
 const Stack = createStackNavigator()
 
@@ -20,6 +21,7 @@ const App = () => {
         <Stack.Screen name="Profile" component={ProfilePage} />
         <Stack.Screen name="ScrollPage" component={ScrollPage} />
         <Stack.Screen name="ListPage" component={ListPage} />
+        <Stack.Screen name="FetchDataPage" component={FetchDataPage} />
       </Stack.Navigator>
     </NavigationContainer>
   )

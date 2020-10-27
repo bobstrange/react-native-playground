@@ -22,6 +22,10 @@ const HomePage = ({ navigation }) => {
         title="Show ListPage"
         onPress={() => navigation.navigate('ListPage')}
       />
+      <Button
+        title="Show FetchDataPage"
+        onPress={() => navigation.navigate('FetchDataPage')}
+      />
 
       <PizzaTranslator />
     </View>
