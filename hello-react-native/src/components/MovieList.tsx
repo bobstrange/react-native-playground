@@ -11,7 +11,7 @@ const renderItem: ListRenderItem<ListItem> = ({ item }) => {
 }
 
 type ListItem = {
-  id: number
+  id: string
   title: string
   releaseYear: string
 }

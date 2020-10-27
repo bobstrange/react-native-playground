@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import { MovieList } from '../components/MovieList'
+import { Movie, fetchMovies } from '../apis/movie'
 
 export const FetchDataPage = () => {
   const [isLoading, setLoading] = useState(true)
-  const [data, setData] = useState([])
+  const [data, setData] = useState<Movie[]>([])
 
   useEffect(() => {
     ;(async () => {
       setLoading(true)
       try {
-        const response = await axios.get('https://reactnative.dev/movies.json')
-        setData(response.data.movies)
+        const response = await fetchMovies()
+        setData(response.movies)
       } catch (error) {
         console.error(error)
       }
