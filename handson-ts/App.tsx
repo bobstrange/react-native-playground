@@ -115,11 +115,13 @@ function Eet({
   text,
   like,
   onLike,
+  onDelete,
 }: {
   eetAt: number;
   text: string;
   like: boolean;
   onLike: () => void;
+  onDelete: () => void;
 }) {
   const date = new Date(eetAt);
   return (
@@ -138,6 +140,9 @@ function Eet({
             <Ionicons name="heart-circle-outline" size={22} color="#aaa" />
           )}
         </TouchableOpacity>
+        <TouchableOpacity onPress={onDelete}>
+          <Ionicons name="remove-circle" size={22} color="#555" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -152,14 +157,20 @@ interface Eet {
 export default function App() {
   const [eetList, setEetList] = useState<Eet[]>([]);
   const addEet = (text: string) => {
-    const newEet = eetList.concat([]);
-    newEet.push({
+    const newEetList = eetList.concat([]);
+    newEetList.push({
       id: Date.now(),
       text,
       like: false,
     });
-    setEetList(newEet);
+    setEetList(newEetList);
   };
+
+  const deleteEet = (id: number) => {
+    const newEetList = eetList.filter((eet) => eet.id !== id);
+    setEetList(newEetList);
+  };
+
   const onLike = (index: number) => {
     const newEetList = eetList.concat([]);
     newEetList[index].like = !newEetList[index].like;
@@ -179,6 +190,7 @@ export default function App() {
                 text={item.text}
                 like={item.like}
                 onLike={() => onLike(index)}
+                onDelete={() => deleteEet(item.id)}
               />
             )}
             keyExtractor={(item) => `${item.id}`}
