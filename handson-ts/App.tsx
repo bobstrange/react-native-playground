@@ -72,11 +72,33 @@ function Input({ addEet }: { addEet: (text: string) => void }) {
   );
 }
 
+const eetStyles = StyleSheet.create({
+  container: {
+    borderWidth: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderColor: "rgb(29, 161, 242)",
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  text: {
+    color: "white",
+    fontSize: 16,
+  },
+});
+function Eet({ text }: { text: string }) {
+  return (
+    <View style={eetStyles.container}>
+      <Text style={eetStyles.text}>{text}</Text>
+    </View>
+  );
+}
+
 export default function App() {
-  const [eetList, setEetList] = useState<string[]>([]);
+  const [eetList, setEetList] = useState<{ text: string }[]>([]);
   const addEet = (text: string) => {
     const newEet = eetList.concat([]);
-    newEet.push(text);
+    newEet.push({ text });
     setEetList(newEet);
   };
   return (
@@ -84,7 +106,9 @@ export default function App() {
       <Input addEet={addEet} />
       <View style={styles.container}></View>
       <View style={styles.content}>
-        <Text style={styles.contentText}>{JSON.stringify(eetList)}</Text>
+        {eetList.map((eet, index) => (
+          <Eet key={index} text={eet.text} />
+        ))}
       </View>
       <StatusBar style="light" />
     </SafeAreaView>
