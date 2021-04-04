@@ -52,24 +52,28 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function App() {
+function Input() {
   const [text, setText] = useState("");
   return (
+    <View style={styles.inputContainer}>
+      <TextInput
+        style={styles.input}
+        onChangeText={(_text) => setText(_text)}
+      />
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>イートする</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+export default function App() {
+  return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            onChangeText={(_text) => setText(_text)}
-          />
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>イートする</Text>
-          </TouchableOpacity>
-        </View>
-        <StatusBar style="light" />
-      </View>
+      <Input />
+      <View style={styles.container}></View>
       <View style={styles.content}>
-        <Text style={styles.contentText}>{text}</Text>
+        <Text style={styles.contentText}></Text>
       </View>
       <StatusBar style="light" />
     </SafeAreaView>
