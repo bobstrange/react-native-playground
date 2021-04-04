@@ -62,9 +62,6 @@ const styles = StyleSheet.create({
 function Input({ addEet }: { addEet: (text: string) => void }) {
   const [text, setText] = useState("");
   const onPress = () => {
-    if (text === "") {
-      return;
-    }
     addEet(text);
     setText("");
   };
@@ -75,7 +72,11 @@ function Input({ addEet }: { addEet: (text: string) => void }) {
         onChangeText={(_text) => setText(_text)}
         value={text}
       />
-      <TouchableOpacity style={styles.button} onPress={onPress}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={onPress}
+        disabled={text === ""}
+      >
         <Text style={styles.buttonText}>イートする</Text>
       </TouchableOpacity>
     </View>
