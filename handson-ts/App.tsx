@@ -113,7 +113,7 @@ function Eet({
 }: {
   text: string;
   like: boolean;
-  onLike: (index: number) => void;
+  onLike: () => void;
 }) {
   return (
     <View style={eetStyles.container}>
