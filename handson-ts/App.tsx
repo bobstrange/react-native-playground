@@ -52,13 +52,16 @@ const styles = StyleSheet.create({
   },
 });
 
-function Input() {
-  const [text, setText] = useState("");
+function Input({
+  setState,
+}: {
+  setState: React.Dispatch<React.SetStateAction<string>>;
+}) {
   return (
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
-        onChangeText={(_text) => setText(_text)}
+        onChangeText={(_text) => setState(_text)}
       />
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>イートする</Text>
@@ -68,12 +71,13 @@ function Input() {
 }
 
 export default function App() {
+  const [text, setText] = useState("");
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Input />
+      <Input setState={setText} />
       <View style={styles.container}></View>
       <View style={styles.content}>
-        <Text style={styles.contentText}></Text>
+        <Text style={styles.contentText}>{text}</Text>
       </View>
       <StatusBar style="light" />
     </SafeAreaView>
