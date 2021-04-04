@@ -15,7 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#222",
+    backgroundColor: "#999",
   },
   container: {
     flex: 1,
@@ -96,6 +96,10 @@ const eetStyles = StyleSheet.create({
     color: "white",
     fontSize: 16,
   },
+  createdAt: {
+    color: "white",
+    padding: 5,
+  },
   actionContainer: {
     borderTopWidth: 1,
     borderTopColor: "#aaa",
@@ -107,18 +111,22 @@ const eetStyles = StyleSheet.create({
 });
 
 function Eet({
+  eetAt,
   text,
   like,
   onLike,
 }: {
+  eetAt: number;
   text: string;
   like: boolean;
   onLike: () => void;
 }) {
+  const date = new Date(eetAt);
   return (
     <View style={eetStyles.container}>
       <Text style={eetStyles.text}>{text}</Text>
       <View style={eetStyles.actionContainer}>
+        <Text style={eetStyles.createdAt}>{date.toISOString()}</Text>
         <TouchableOpacity onPress={onLike}>
           {like ? (
             <Ionicons
@@ -167,6 +175,7 @@ export default function App() {
             data={eetList}
             renderItem={({ item, index }) => (
               <Eet
+                eetAt={item.id}
                 text={item.text}
                 like={item.like}
                 onLike={() => onLike(index)}
