@@ -52,18 +52,20 @@ const styles = StyleSheet.create({
   },
 });
 
-function Input({
-  setState,
-}: {
-  setState: React.Dispatch<React.SetStateAction<string>>;
-}) {
+function Input({ addEet }: { addEet: (text: string) => void }) {
+  const [text, setText] = useState("");
+  const onPress = () => {
+    addEet(text);
+    setText("");
+  };
   return (
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
-        onChangeText={(_text) => setState(_text)}
+        onChangeText={(_text) => setText(_text)}
+        value={text}
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
         <Text style={styles.buttonText}>イートする</Text>
       </TouchableOpacity>
     </View>
@@ -71,13 +73,18 @@ function Input({
 }
 
 export default function App() {
-  const [text, setText] = useState("");
+  const [eetList, setEetList] = useState<string[]>([]);
+  const addEet = (text: string) => {
+    const newEet = eetList.concat([]);
+    newEet.push(text);
+    setEetList(newEet);
+  };
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Input setState={setText} />
+      <Input addEet={addEet} />
       <View style={styles.container}></View>
       <View style={styles.content}>
-        <Text style={styles.contentText}>{text}</Text>
+        <Text style={styles.contentText}>{JSON.stringify(eetList)}</Text>
       </View>
       <StatusBar style="light" />
     </SafeAreaView>
