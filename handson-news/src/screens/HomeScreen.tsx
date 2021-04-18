@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
 import axios from 'axios'
 import { ListItem } from '../components/ListItem'
+import { useNavigation } from '@react-navigation/core'
 
 type Article = {
   urlToImage: string
@@ -12,6 +13,7 @@ type Article = {
 
 export const HomeScreen = () => {
   const [articles, setArticles] = useState<Article[]>([])
+  const navigation = useNavigation()
 
   const fetch = async () => {
     const response = await axios.get<Article[]>(
@@ -33,6 +35,9 @@ export const HomeScreen = () => {
             title={item.title}
             subTitle={item.author}
             imageURL={item.urlToImage}
+            onPress={() => {
+              navigation.navigate('Detail')
+            }}
           />
         )}
         keyExtractor={(_, index) => index.toString()}
