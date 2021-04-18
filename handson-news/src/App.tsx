@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
 import { ListItem } from './components/ListItem'
@@ -24,12 +24,20 @@ const ARTICLES = [
   },
 ]
 
+type Article = typeof ARTICLES[0]
+
 export default function App() {
+  const [articles, setArticles] = useState<Article[]>([])
+
+  useEffect(() => {
+    setArticles(ARTICLES)
+  }, [])
+
   return (
     <View style={styles.container}>
       <StatusBar />
       <FlatList
-        data={ARTICLES}
+        data={articles}
         renderItem={({ item }) => (
           <ListItem
             title={item.title}
@@ -37,7 +45,7 @@ export default function App() {
             imageURL={item.urlToImage}
           />
         )}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(_, index) => index.toString()}
       />
     </View>
   )
