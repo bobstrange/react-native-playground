@@ -2,35 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View, FlatList, SafeAreaView } from 'react-native'
 import { ListItem } from './components/ListItem'
+import axios from 'axios'
 
-const ARTICLES = [
-  {
-    urlToImage: 'https://picsum.photos/200',
-    title:
-      'React Native は、Facebookが開発したクロスプラットフォームアプリ開発用フレームワークです。 ReactNative でアプリを作ることで、クロスプラットフォーム( iOS / Androidどちらでも動く)アプリを作ることができます。',
-    author: 'Techニュース',
-  },
-  {
-    urlToImage: 'https://picsum.photos/201',
-    title:
-      'React Native Japan コミュニティは、日本でのReact Nativeの普及のため、活動を行っているコミュニティです。',
-    author: 'React Native Japan',
-  },
-  {
-    urlToImage: 'https://picsum.photos/203',
-    title:
-      'JavaScriptはプロトタイプベースのオブジェクト指向スクリプト言語であるが、クラスなどのクラスベースに見られる機能も取り込んでいます。',
-    author: 'JavaScriptFan',
-  },
-]
-
-type Article = typeof ARTICLES[0]
+type Article = {
+  urlToImage: string
+  title: string
+  author: string
+  publishedAt: string
+}
 
 export default function App() {
   const [articles, setArticles] = useState<Article[]>([])
 
+  const fetch = async () => {
+    const response = await axios.get<Article[]>(
+      'http://localhost:3333/articles'
+    )
+    setArticles(response.data)
+  }
+
   useEffect(() => {
-    setArticles(ARTICLES)
+    fetch()
   }, [])
 
   return (
