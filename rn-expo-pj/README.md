@@ -85,3 +85,16 @@ yarn add prettier eslint-config-prettier -D
 ```
 
 依存関係のインストール後、[.eslintrc.js](./.eslintrc.js) と [.prettierrc.js](./.prettierrc.js) を編集
+
+## Debug
+
+[参考](https://kadikraman.github.io/react-native-v2/debugging)
+
+Debug Menu の表示 `Ctrl - M` (Win/Linux) `Cmd - M` (Mac)
+
+### Debug Menu でできること
+
+- Reload
+- Enable/Disable Hot reload
+- Element inspector
+- Debug
