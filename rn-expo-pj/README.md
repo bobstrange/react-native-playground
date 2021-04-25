@@ -2,6 +2,49 @@
 
 Frontend master の [React Native V2](https://kadikraman.github.io/react-native-v2) の写経
 
+## 環境構築 (Ubuntu)
+
+[参考](https://reactnative.dev/docs/environment-setup)
+
+Android のエミュレータが動作するようにする。
+
+1. JDK のインストール
+    - `sudo apt update && sudo apt install default-jdk` でインストール
+    - `javac --version` で、 JDK がインストールされたことを確認
+    - [参考](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-20-04-ja)
+2. Android Studio のインストール
+    - [こちら](https://developer.android.com/studio/index.html) tar.gz をダウンロード
+    - `tar xzvf <downloaded-file>` で、解凍
+    - 解凍されたフォルダを `/usr/local` 配下に移動
+        - `sudo mv android-studio /usr/local`
+    - インストールスクリプトを実行 `/usr/local/android-studio/bin/studio.sh`
+        - 特にこだわりが無ければ、Standard の設定で
+    - VM アクセラレーションを設定する
+        - [こちら](https://developer.android.com/studio/run/emulator-acceleration?utm_source=android-studio#vm-linux) の手順で、 `/dev/kvm exists` と出たらOK
+        - 入っていない場合は、[こちら](https://developer.android.com/studio/run/emulator-acceleration?utm_source=android-studio#vm-linux) にあるとおり
+            - `sudo apt-get install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils ia32-libs-multiarch` で、インストールする
+3. Android SDK のインストール
+    - Android Studio は、デフォルトで最新の Android SDK をインストールするが、 React Native の Native Code の開発には、 `Android 10 (Q)` SDK が必要なので、個別でインストールする
+    - Configure -> SDK Manager を選択
+    - 開いた設定画面で、SDK Platforms タブを選択
+    - 右下の `Show Package Detail` チェックボックスにチェックを入れる
+    - Android 10.0 (Q) のエントリーで、↓にチェックが入っている
+        - `Android SDK Platform 29`
+        - `Intel x86 Atom_64 System Image`
+    - SDK Tools タブを選択
+    - 右下の `Show Package Detail` チェックボックスにチェックを入れる
+    - Android SDK Build-Tools エントリで、29.0.2 がチェックされている
+    - 最後に、 Apply を押すと、ダウンロードとインストールが開始される
+4. エミュレータのインストール
+    - [参考](https://docs.expo.io/workflow/android-studio-emulator/)
+    - `/dev/kvm` の permission が無いというエラーが出ているので、直す
+        - [参考](https://efficientcoder.net/dev-kvm-not-found-device-permission-denied-errors-linux-ubuntu-20-04-19-04/#:~:text=Solving%20%2Fdev%2Fkvm%20device%20permission%20denied%20Error&text=you%20need%20to%20install%20qemu,username%20to%20the%20kvm%20group.&text=If%20your%20user%20name%20is,start%20using%20your%20Android%20emulator.)
+        - `qemu-kvm` をインストール `sudo apt install qemu-kvm`
+        - 自分のユーザを kvm グループに追加 `sudo adduser $USER kvm`
+        - システム再起動で、エラーが解消されている
+5. エミュレータでの起動
+    - `yarn start` して、 `a` でエミュレータ上で起動する
+
 ## Lint 追加
 
 [参考](https://kadikraman.github.io/react-native-v2)
