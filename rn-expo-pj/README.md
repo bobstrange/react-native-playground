@@ -98,3 +98,10 @@ Debug Menu の表示 `Ctrl - M` (Win/Linux) `Cmd - M` (Mac)
 - Enable/Disable Hot reload
 - Element inspector
 - Debug
+
+## Memo
+
+- Text は全て `<Text>` タグで囲まれていないとエラーになる
+- `<SafeAreaView>` を使うことで、画面上部や、画面下部に表示されるシステム用などの領域に、Overlap しないようにできる
+- 1 つの Component に複数の style を適用する場合は、`style` に配列を渡す
+  - `<View style={[styles.firstStyle, styles.secondStyle]} />`
