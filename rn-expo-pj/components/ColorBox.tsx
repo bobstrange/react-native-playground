@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { View, Text, StyleSheet, ViewStyle } from 'react-native'
+import { View, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native'
 
 type Props = {
   colorName: string
@@ -10,9 +10,15 @@ export const ColorBox: FC<Props> = ({ colorName, hexCode }) => {
   const boxColor: ViewStyle = {
     backgroundColor: hexCode,
   }
+  const textColor: TextStyle = {
+    color:
+      parseInt(hexCode.replace('#', ''), 16) > 0xffffff / 1.1
+        ? 'black'
+        : 'white',
+  }
   return (
     <View style={[styles.box, boxColor]}>
-      <Text style={styles.boxText}>
+      <Text style={[styles.boxText, textColor]}>
         {colorName}: {hexCode}
       </Text>
     </View>
@@ -26,11 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-  cyan: {
-    backgroundColor: '#2aa198',
-  },
   boxText: {
-    color: 'white',
     fontWeight: 'bold',
   },
 })
