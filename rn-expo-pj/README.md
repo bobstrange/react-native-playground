@@ -105,3 +105,18 @@ Debug Menu の表示 `Ctrl - M` (Win/Linux) `Cmd - M` (Mac)
 - `<SafeAreaView>` を使うことで、画面上部や、画面下部に表示されるシステム用などの領域に、Overlap しないようにできる
 - 1 つの Component に複数の style を適用する場合は、`style` に配列を渡す
   - `<View style={[styles.firstStyle, styles.secondStyle]} />`
+
+## List Rendering
+
+[参考](https://kadikraman.github.io/react-native-v2/lists)
+
+### List Props
+
+- `ListEmptyComponent`
+  - `data` が空配列 or undefined のときにレンダリングされる
+  - List の data の Loading 中などを表現するのに使える
+- `extraData`
+  - List の再レンダリングを制御するためのマーカー
+  - `data` が変更されたときには、List は自動的に再レンダリングされるが、Header, Footer など、`data` 以外のプロパティによって制御されている箇所を、再レンダリングさせたいときに使用する
+- `onEndReached`
+  - Pagination などを実装するためにある
