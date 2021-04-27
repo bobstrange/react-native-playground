@@ -110,6 +110,18 @@ Debug Menu の表示 `Ctrl - M` (Win/Linux) `Cmd - M` (Mac)
 
 [参考](https://kadikraman.github.io/react-native-v2/lists)
 
+### Flat List
+
+基本的には以下 3 つのプロパティを設定すれば良い
+
+- `data`
+  - リストに表示したい項目の配列
+- `renderItem`
+  - リストの 1 要素にレンダリングしたい内容
+- `keyExtractor`
+  - リストの各要素を区別するためのキー
+  - リストレンダリングでは、要素の再利用があるため、要素の中身にレンダリングされる内容を区別するためのキーが必要
+
 ### List Props
 
 - `ListEmptyComponent`
