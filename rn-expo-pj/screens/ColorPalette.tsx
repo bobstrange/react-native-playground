@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Text, SafeAreaView, StyleSheet, FlatList } from 'react-native'
+import { Text, StyleSheet, FlatList } from 'react-native'
 import { ColorBox } from '../components/ColorBox'
 
 const COLORS = [
@@ -37,7 +37,14 @@ const ColorPalette: FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingTop: 20,
+    backgroundColor: 'white',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
   heading: {
     fontSize: 18,
