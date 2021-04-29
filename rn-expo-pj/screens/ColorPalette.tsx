@@ -1,6 +1,6 @@
 import { useRoute } from '@react-navigation/core'
 import React, { FC } from 'react'
-import { Text, StyleSheet, FlatList } from 'react-native'
+import { StyleSheet, FlatList } from 'react-native'
 import { ColorPaletteProps } from '../route'
 import { ColorBox } from '../components/ColorBox'
 

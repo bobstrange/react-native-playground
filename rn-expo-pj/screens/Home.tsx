@@ -1,10 +1,15 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { FC } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native'
 import { HomeProps } from '../route'
 
-const SOLARIZED = [
+const SOLARIZED: Color[] = [
   { colorName: 'Base03', hexCode: '#002b36' },
   { colorName: 'Base02', hexCode: '#073642' },
   { colorName: 'Base01', hexCode: '#586e75' },
@@ -23,7 +28,7 @@ const SOLARIZED = [
   { colorName: 'Green', hexCode: '#859900' },
 ]
 
-const RAINBOW = [
+const RAINBOW: Color[] = [
   { colorName: 'Red', hexCode: '#FF0000' },
   { colorName: 'Orange', hexCode: '#FF7F00' },
   { colorName: 'Yellow', hexCode: '#FFFF00' },
@@ -31,7 +36,7 @@ const RAINBOW = [
   { colorName: 'Violet', hexCode: '#8B00FF' },
 ]
 
-const FRONTEND_MASTERS = [
+const FRONTEND_MASTERS: Color[] = [
   { colorName: 'Red', hexCode: '#c02d28' },
   { colorName: 'Black', hexCode: '#3e3e3e' },
   { colorName: 'Grey', hexCode: '#8a8a8a' },
@@ -39,7 +44,7 @@ const FRONTEND_MASTERS = [
   { colorName: 'Orange', hexCode: '#e66225' },
 ]
 
-const COLOR_PALETTES = [
+const COLOR_PALETTES: ColorPalette[] = [
   {
     paletteName: 'Solarized',
     colors: SOLARIZED,
@@ -54,28 +59,39 @@ const COLOR_PALETTES = [
   },
 ]
 
-const ListItem: FC<{ item: typeof COLOR_PALETTES[0] }> = ({ item }) => {
-  const { paletteName, colors } = item
-
-  return (
-    <View style={{ backgroundColor: 'green' }}>
-      <Text style={listItemStyle.title}>{paletteName}</Text>
-      {colors.map(({ hexCode }) => (
-        <View style={listItemStyle.colorBox} key={hexCode} />
-      ))}
-    </View>
-  )
+type Color = {
+  colorName: string
+  hexCode: string
 }
 
-const listItemStyle = StyleSheet.create({
-  title: {
-    fontSize: 18,
-  },
-  colorBox: {
-    height: 20,
-    width: 20,
-  },
-})
+type ColorPalette = {
+  paletteName: string
+  colors: Color[]
+}
+
+const PalettePreview: FC<{ palette: ColorPalette; onPress: () => void }> = ({
+  palette,
+  onPress,
+}) => {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Text style={palettePreviewStyles.title}>{palette.paletteName}</Text>
+      <FlatList
+        style={palettePreviewStyles.list}
+        data={palette.colors.slice(0, 5)}
+        keyExtractor={({ hexCode }) => hexCode}
+        renderItem={({ item }) => (
+          <View
+            style={[
+              palettePreviewStyles.box,
+              { backgroundColor: item.hexCode },
+            ]}
+          />
+        )}
+      />
+    </TouchableOpacity>
+  )
+}
 
 const Home: FC = () => {
   const navigation = useNavigation<HomeProps['navigation']>()
@@ -85,15 +101,38 @@ const Home: FC = () => {
         data={COLOR_PALETTES}
         keyExtractor={(item) => item.paletteName}
         renderItem={({ item }) => (
-          <TouchableOpacity
+          <PalettePreview
+            palette={item}
             onPress={() => navigation.navigate('ColorPalette', item)}
           >
             <Text>{item.paletteName}</Text>
-          </TouchableOpacity>
+          </PalettePreview>
         )}
       />
     </View>
   )
 }
+
+const palettePreviewStyles = StyleSheet.create({
+  list: {
+    marginBottom: 20,
+    flexDirection: 'row',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  box: {
+    height: 30,
+    width: 30,
+    marginRight: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    elevation: 10,
+  },
+})
 
 export default Home
