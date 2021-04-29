@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { RootStackParams } from './route'
 import Home from './screens/Home'
 import ColorPalette from './screens/ColorPalette'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParams>()
 
 const App: FC = () => {
   return (

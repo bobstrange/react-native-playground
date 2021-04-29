@@ -2,9 +2,10 @@ import { useNavigation } from '@react-navigation/core'
 import React, { FC } from 'react'
 import { View, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { HomeProps } from '../route'
 
 const Home: FC = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<HomeProps['navigation']>()
   return (
     <View>
       <Text>Home</Text>
