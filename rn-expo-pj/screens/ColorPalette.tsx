@@ -15,7 +15,6 @@ const ColorPalette: FC = () => {
         <ColorBox colorName={item.colorName} hexCode={item.hexCode} />
       )}
       keyExtractor={({ hexCode }) => hexCode}
-      ListHeaderComponent={() => <Text style={styles.title}>Solarized</Text>}
     />
   )
 }
