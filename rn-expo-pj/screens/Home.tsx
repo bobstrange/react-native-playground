@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import Axios from 'axios'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useCallback, useEffect, useState } from 'react'
 import {
   StyleSheet,
   FlatList,
@@ -46,16 +46,18 @@ const PalettePreview: FC<{ palette: ColorPalette; onPress: () => void }> = ({
 
 const Home: FC = () => {
   const [colorPalettes, setColorPalettes] = useState<ColorPalette[]>()
-  const updateColorPalettes = async () => {
+  const updateColorPalettes = useCallback(async () => {
     const res = await Axios.get<ColorPalette[]>(
       'https://color-palette-api.kadikraman.now.sh/palettes'
     )
 
-    setColorPalettes(res.data)
-  }
+    if (res.status === 200) {
+      setColorPalettes(res.data)
+    }
+  }, [])
   useEffect(() => {
     updateColorPalettes()
-  }, [])
+  }, [updateColorPalettes])
 
   const navigation = useNavigation<HomeProps['navigation']>()
   return (
