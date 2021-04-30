@@ -45,6 +45,22 @@ const PalettePreview: FC<{ palette: ColorPalette; onPress: () => void }> = ({
   )
 }
 
+const useRefresh = (
+  requestToRefresh: () => Promise<void>
+): [boolean, () => Promise<void>] => {
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true)
+    await requestToRefresh()
+    setTimeout(() => {
+      setIsRefreshing(false)
+    }, 100)
+  }, [requestToRefresh])
+
+  return [isRefreshing, handleRefresh]
+}
+
 const Home: FC = () => {
   const [colorPalettes, setColorPalettes] = useState<ColorPalette[]>()
 
@@ -58,14 +74,7 @@ const Home: FC = () => {
     }
   }, [])
 
-  const [isRefreshing, setIsRefreshing] = useState(false)
-
-  const handleRefresh = useCallback(async () => {
-    setIsRefreshing(true)
-    await handleUpdateColorPalettes()
-    setIsRefreshing(false)
-  }, [handleUpdateColorPalettes])
-
+  const [isRefreshing, handleRefresh] = useRefresh(handleUpdateColorPalettes)
   useEffect(() => {
     handleUpdateColorPalettes()
   }, [handleUpdateColorPalettes])
