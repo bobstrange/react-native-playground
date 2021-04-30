@@ -1,6 +1,12 @@
 import { StackScreenProps } from '@react-navigation/stack'
 
 export type RootStackParams = {
+  Main: undefined
+}
+
+export type MainProps = StackScreenProps<RootStackParams, 'Main'>
+
+export type MainStackParams = {
   Home: undefined
   ColorPalette: {
     paletteName: string
@@ -8,8 +14,8 @@ export type RootStackParams = {
   }
 }
 
-export type HomeProps = StackScreenProps<RootStackParams, 'Home'>
+export type HomeProps = StackScreenProps<MainStackParams, 'Home'>
 export type ColorPaletteProps = StackScreenProps<
-  RootStackParams,
+  MainStackParams,
   'ColorPalette'
 >

@@ -7,7 +7,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  RefreshControl,
 } from 'react-native'
 import { HomeProps } from '../route'
 
