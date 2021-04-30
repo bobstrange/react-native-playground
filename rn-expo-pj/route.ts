@@ -3,7 +3,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 export type RootStackParams = {
   Home: undefined
   ColorPalette: {
-    paletteName: 'Solarized' | 'Rainbow' | 'Frontend Masters'
+    paletteName: string
     colors: { colorName: string; hexCode: string }[]
   }
 }
