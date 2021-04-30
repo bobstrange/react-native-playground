@@ -154,7 +154,7 @@ const handleRefresh = useCallback(async () => {
   setIsRefresh(true)
   await handleFetchData()
   setIsRefresh(false)
-})
+}, [])
 
 <FlatList
   refreshing={isRefresh}

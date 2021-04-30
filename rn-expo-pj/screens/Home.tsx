@@ -7,6 +7,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native'
 import { HomeProps } from '../route'
 
@@ -46,7 +47,8 @@ const PalettePreview: FC<{ palette: ColorPalette; onPress: () => void }> = ({
 
 const Home: FC = () => {
   const [colorPalettes, setColorPalettes] = useState<ColorPalette[]>()
-  const updateColorPalettes = useCallback(async () => {
+
+  const handleUpdateColorPalettes = useCallback(async () => {
     const res = await Axios.get<ColorPalette[]>(
       'https://color-palette-api.kadikraman.now.sh/palettes'
     )
@@ -55,9 +57,18 @@ const Home: FC = () => {
       setColorPalettes(res.data)
     }
   }, [])
+
+  const [isRefreshing, setIsRefreshing] = useState(false)
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true)
+    await handleUpdateColorPalettes()
+    setIsRefreshing(false)
+  }, [])
+
   useEffect(() => {
-    updateColorPalettes()
-  }, [updateColorPalettes])
+    handleUpdateColorPalettes()
+  }, [handleUpdateColorPalettes])
 
   const navigation = useNavigation<HomeProps['navigation']>()
   return (
@@ -74,6 +85,8 @@ const Home: FC = () => {
             <Text>{item.paletteName}</Text>
           </PalettePreview>
         )}
+        refreshing={isRefreshing}
+        onRefresh={handleRefresh}
       />
     </View>
   )
