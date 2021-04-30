@@ -64,7 +64,7 @@ const Home: FC = () => {
     setIsRefreshing(true)
     await handleUpdateColorPalettes()
     setIsRefreshing(false)
-  }, [])
+  }, [handleUpdateColorPalettes])
 
   useEffect(() => {
     handleUpdateColorPalettes()

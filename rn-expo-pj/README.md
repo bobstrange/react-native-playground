@@ -161,3 +161,6 @@ const handleRefresh = useCallback(async () => {
   onRefresh={handleRefresh}
 />
 ```
+
+`refreshing` には、現状の refresh 状況の state を設定
+`onRefresh` は、pull to refresh の処理自体を設定する
