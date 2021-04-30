@@ -95,6 +95,15 @@ const Home: FC = () => {
         )}
         refreshing={isRefreshing}
         onRefresh={handleRefresh}
+        ListHeaderComponent={
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('AddNewPalette')
+            }}
+          >
+            <Text>Add a color scheme</Text>
+          </TouchableOpacity>
+        }
       />
     </View>
   )
