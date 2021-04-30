@@ -132,3 +132,32 @@ Debug Menu の表示 `Ctrl - M` (Win/Linux) `Cmd - M` (Mac)
   - `data` が変更されたときには、List は自動的に再レンダリングされるが、Header, Footer など、`data` 以外のプロパティによって制御されている箇所を、再レンダリングさせたいときに使用する
 - `onEndReached`
   - Pagination などを実装するためにある
+
+## Pull to Refresh
+
+https://kadikraman.github.io/react-native-v2/pull-to-refresh
+
+`FlatList` の `refreshing` attribute と `onRefresh` attribute を設定すれば良い
+
+```tsx
+const [data, setData] = useState([])
+const [isRefresh, setIsRefresh] = useState(false)
+
+const handleFetchData = useCallback(async () => {
+  const res = await fetch('https://xxx.yyy.zzz/data')
+  if (res.ok) {
+    setData(await res.json())
+  }
+}, [])
+
+const handleRefresh = useCallback(async () => {
+  setIsRefresh(true)
+  await handleFetchData()
+  setIsRefresh(false)
+})
+
+<FlatList
+  refreshing={isRefresh}
+  onRefresh={handleRefresh}
+/>
+```
