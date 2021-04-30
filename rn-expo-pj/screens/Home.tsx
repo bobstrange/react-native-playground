@@ -65,7 +65,7 @@ type Color = {
 }
 
 type ColorPalette = {
-  paletteName: string
+  paletteName: 'Solarized' | 'Rainbow' | 'Frontend Masters'
   colors: Color[]
 }
 
