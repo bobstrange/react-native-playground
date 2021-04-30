@@ -98,6 +98,7 @@ const Home: FC = () => {
   return (
     <View>
       <FlatList
+        style={styles.list}
         data={COLOR_PALETTES}
         keyExtractor={(item) => item.paletteName}
         renderItem={({ item }) => (
@@ -135,4 +136,9 @@ const palettePreviewStyles = StyleSheet.create({
   },
 })
 
+const styles = StyleSheet.create({
+  list: {
+    padding: 10,
+  },
+})
 export default Home
