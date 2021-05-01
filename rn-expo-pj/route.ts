@@ -13,6 +13,11 @@ export type RootStackParams = {
 export type MainProps = StackScreenProps<RootStackParams, 'Main'>
 export type AddNewPalette = StackScreenProps<RootStackParams, 'AddNewPalette'>
 
+export type AddNewPaletteNavigationProp = StackNavigationProp<
+  RootStackParams,
+  'AddNewPalette'
+>
+
 export type MainStackParams = {
   Home: undefined
   ColorPalette: {

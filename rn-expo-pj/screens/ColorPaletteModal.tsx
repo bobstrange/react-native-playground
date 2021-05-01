@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core'
 import React, { FC, useCallback, useState } from 'react'
 import {
   Text,
@@ -12,7 +13,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native-gesture-handler'
-import { color } from 'react-native-reanimated'
+import { AddNewPaletteNavigationProp } from '../route'
 
 const COLORS = [
   { colorName: 'AliceBlue', hexCode: '#F0F8FF' },
@@ -21,6 +22,7 @@ const COLORS = [
 ]
 
 const ColorPaletteModal: FC = () => {
+  const navigation = useNavigation<AddNewPaletteNavigationProp>()
   const [state, setState] = useState<{ [k: number]: boolean }>({})
   const [colorName, setColorName] = useState('')
 
@@ -38,7 +40,9 @@ const ColorPaletteModal: FC = () => {
       Alert.alert('', 'Please select at least 3 colors.')
       return
     }
-  }, [colorName, state])
+
+    navigation.goBack()
+  }, [navigation, colorName, state])
 
   return (
     <View>
