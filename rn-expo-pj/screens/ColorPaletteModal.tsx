@@ -14,7 +14,12 @@ const ColorPaletteModal: FC = () => {
       <FlatList
         data={COLORS}
         keyExtractor={({ hexCode }) => hexCode}
-        renderItem={({ item }) => <Text>{item.colorName}</Text>}
+        renderItem={({ item }) => (
+          <View style={listItemStyles.container}>
+            <Text>{item.colorName}</Text>
+          </View>
+        )}
+        ItemSeparatorComponent={() => <View style={listStyles.separator} />}
         ListHeaderComponent={
           <View style={listHeaderStyles.container}>
             <Text style={listHeaderStyles.title}>
@@ -34,6 +39,21 @@ const ColorPaletteModal: FC = () => {
     </View>
   )
 }
+
+const listStyles = StyleSheet.create({
+  separator: {
+    height: 1,
+    backgroundColor: '#bbb',
+    marginHorizontal: 10,
+  },
+})
+
+const listItemStyles = StyleSheet.create({
+  container: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+  },
+})
 
 const listHeaderStyles = StyleSheet.create({
   container: { padding: 5, marginBottom: 10 },
