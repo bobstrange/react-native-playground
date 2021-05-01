@@ -1,10 +1,18 @@
-import React, { FC } from 'react'
-import { Text, View, FlatList, StyleSheet } from 'react-native'
+import React, { FC, useCallback, useState } from 'react'
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  TextInputProps,
+  Alert,
+} from 'react-native'
 import {
   Switch,
   TextInput,
   TouchableOpacity,
 } from 'react-native-gesture-handler'
+import { color } from 'react-native-reanimated'
 
 const COLORS = [
   { colorName: 'AliceBlue', hexCode: '#F0F8FF' },
@@ -13,15 +21,42 @@ const COLORS = [
 ]
 
 const ColorPaletteModal: FC = () => {
+  const [state, setState] = useState<{ [k: number]: boolean }>({})
+  const [colorName, setColorName] = useState('')
+
+  const handleChangeColorName: TextInputProps['onChangeText'] = (text) => {
+    setColorName(text)
+  }
+
+  const handleSubmit = useCallback(async () => {
+    if (colorName.length === 0) {
+      Alert.alert('', 'Please input name of your color palette.')
+      return
+    }
+    if (Object.entries(state).filter(([_, enabled]) => enabled).length < 3) {
+      // error
+      Alert.alert('', 'Please select at least 3 colors.')
+      return
+    }
+  }, [colorName, state])
+
   return (
     <View>
       <FlatList
         data={COLORS}
         keyExtractor={({ hexCode }) => hexCode}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <View style={listItemStyles.container}>
             <Text>{item.colorName}</Text>
-            <Switch />
+            <Switch
+              onValueChange={() =>
+                setState((current) => ({
+                  ...current,
+                  [index]: !current[index],
+                }))
+              }
+              value={state[index]}
+            />
           </View>
         )}
         ItemSeparatorComponent={() => <View style={listStyles.separator} />}
@@ -30,12 +65,18 @@ const ColorPaletteModal: FC = () => {
             <Text style={listHeaderStyles.title}>
               Name of your color palette
             </Text>
-            <TextInput style={listHeaderStyles.input} />
+            <TextInput
+              style={listHeaderStyles.input}
+              onChangeText={handleChangeColorName}
+            />
           </View>
         }
         ListFooterComponent={
           <View style={listFooterStyles.container}>
-            <TouchableOpacity style={listFooterStyles.button}>
+            <TouchableOpacity
+              style={listFooterStyles.button}
+              onPress={handleSubmit}
+            >
               <Text style={listFooterStyles.buttonTitle}>Submit</Text>
             </TouchableOpacity>
           </View>
