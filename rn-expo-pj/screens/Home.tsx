@@ -97,11 +97,12 @@ const Home: FC = () => {
         onRefresh={handleRefresh}
         ListHeaderComponent={
           <TouchableOpacity
+            style={styles.listHeaderContainer}
             onPress={() => {
               navigation.navigate('AddNewPalette')
             }}
           >
-            <Text>Add a color scheme</Text>
+            <Text style={styles.listHeaderTitle}>Add a color scheme</Text>
           </TouchableOpacity>
         }
       />
@@ -134,6 +135,14 @@ const palettePreviewStyles = StyleSheet.create({
 const styles = StyleSheet.create({
   list: {
     padding: 10,
+  },
+  listHeaderContainer: {
+    marginBottom: 10,
+  },
+  listHeaderTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#53777A',
   },
 })
 export default Home
