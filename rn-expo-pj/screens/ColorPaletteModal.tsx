@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TextInputProps,
   Alert,
+  SwitchProps,
 } from 'react-native'
 import {
   Switch,
@@ -14,7 +15,7 @@ import {
   TouchableOpacity,
 } from 'react-native-gesture-handler'
 import { AddNewPaletteNavigationProp } from '../route'
-import { ColorPalette } from '../types'
+import { Color, ColorPalette } from '../types'
 
 const COLORS = [
   { colorName: 'AliceBlue', hexCode: '#F0F8FF' },
@@ -160,7 +161,7 @@ const COLORS = [
 
 const ColorPaletteModal: FC = () => {
   const navigation = useNavigation<AddNewPaletteNavigationProp>()
-  const [selectedColors, setSelectedColors] = useState<[]>({})
+  const [selectedColors, setSelectedColors] = useState<Color[]>([])
   const [colorName, setColorName] = useState('')
 
   const handleChangeColorName: TextInputProps['onChangeText'] = (text) => {
@@ -188,6 +189,17 @@ const ColorPaletteModal: FC = () => {
     navigation.navigate('Home', { newColorPalette })
   }, [navigation, colorName, selectedColors])
 
+  const handleValueChange = useCallback((value: boolean, color: Color) => {
+    if (value) {
+      setSelectedColors((colors) => [...colors, color])
+    } else {
+      setSelectedColors((colors) =>
+        colors.filter(
+          (selectedColor) => selectedColor.colorName !== color.colorName
+        )
+      )
+    }
+  }, [])
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -202,17 +214,16 @@ const ColorPaletteModal: FC = () => {
       <FlatList
         data={COLORS}
         keyExtractor={({ hexCode }) => hexCode}
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <View style={listItemStyles.container}>
             <Text>{item.colorName}</Text>
             <Switch
-              onValueChange={() =>
-                setSelectedColors((current) => ({
-                  ...current,
-                  [index]: !current[index],
-                }))
+              onValueChange={(selected) => handleValueChange(selected, item)}
+              value={
+                !!selectedColors.find(
+                  (color) => color.colorName === item.colorName
+                )
               }
-              value={selectedColors[index]}
             />
           </View>
         )}
