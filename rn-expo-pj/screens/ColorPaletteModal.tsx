@@ -190,7 +190,12 @@ const ColorPaletteModal: FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Name of your color palette</Text>
-      <TextInput style={styles.input} onChangeText={handleChangeColorName} />
+      <TextInput
+        style={styles.input}
+        value={colorName}
+        placeholder="Palette name"
+        onChangeText={handleChangeColorName}
+      />
       <FlatList
         data={COLORS}
         keyExtractor={({ hexCode }) => hexCode}
@@ -219,7 +224,7 @@ const ColorPaletteModal: FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5,
+    padding: 10,
     backgroundColor: 'white',
     flex: 1,
   },
