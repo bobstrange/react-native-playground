@@ -173,11 +173,8 @@ const ColorPaletteModal: FC = () => {
       Alert.alert('Please enter a palette name')
       return
     }
-    if (
-      Object.entries(selectedColors).filter(([_, enabled]) => enabled).length <
-      3
-    ) {
-      Alert.alert('', 'Please select at least 3 colors.')
+    if (selectedColors.length < 3) {
+      Alert.alert('Please add at least 3 colors')
       return
     }
 
