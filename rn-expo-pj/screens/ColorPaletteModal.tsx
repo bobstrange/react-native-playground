@@ -167,8 +167,8 @@ const ColorPaletteModal: FC = () => {
   }
 
   const handleSubmit = useCallback(async () => {
-    if (colorName.length === 0) {
-      Alert.alert('', 'Please input name of your color palette.')
+    if (!colorName.length) {
+      Alert.alert('Please enter a palette name')
       return
     }
     if (Object.entries(state).filter(([_, enabled]) => enabled).length < 3) {
@@ -176,7 +176,15 @@ const ColorPaletteModal: FC = () => {
       return
     }
 
-    navigation.goBack()
+    const newColorPalette: {
+      paletteName: string
+      colors: { colorName: string; hexCode: string }[]
+    } = {
+      paletteName: colorName,
+      colors: [],
+    }
+
+    navigation.navigate('Home', { newColorPalette })
   }, [navigation, colorName, state])
 
   return (

@@ -13,13 +13,20 @@ export type RootStackParams = {
 export type MainProps = StackScreenProps<RootStackParams, 'Main'>
 export type AddNewPalette = StackScreenProps<RootStackParams, 'AddNewPalette'>
 
-export type AddNewPaletteNavigationProp = StackNavigationProp<
-  RootStackParams,
-  'AddNewPalette'
+export type AddNewPaletteNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<RootStackParams, 'AddNewPalette'>,
+  StackNavigationProp<MainStackParams>
 >
 
 export type MainStackParams = {
-  Home: undefined
+  Home:
+    | {
+        newColorPalette: {
+          paletteName: string
+          colors: { colorName: string; hexCode: string }[]
+        }
+      }
+    | undefined
   ColorPalette: {
     paletteName: string
     colors: { colorName: string; hexCode: string }[]
