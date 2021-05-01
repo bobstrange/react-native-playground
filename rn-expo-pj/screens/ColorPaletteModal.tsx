@@ -180,7 +180,6 @@ const ColorPaletteModal: FC = () => {
       return
     }
     if (Object.entries(state).filter(([_, enabled]) => enabled).length < 3) {
-      // error
       Alert.alert('', 'Please select at least 3 colors.')
       return
     }
@@ -189,7 +188,9 @@ const ColorPaletteModal: FC = () => {
   }, [navigation, colorName, state])
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Name of your color palette</Text>
+      <TextInput style={styles.input} onChangeText={handleChangeColorName} />
       <FlatList
         data={COLORS}
         keyExtractor={({ hexCode }) => hexCode}
@@ -208,31 +209,42 @@ const ColorPaletteModal: FC = () => {
           </View>
         )}
         ItemSeparatorComponent={() => <View style={listStyles.separator} />}
-        ListHeaderComponent={
-          <View style={listHeaderStyles.container}>
-            <Text style={listHeaderStyles.title}>
-              Name of your color palette
-            </Text>
-            <TextInput
-              style={listHeaderStyles.input}
-              onChangeText={handleChangeColorName}
-            />
-          </View>
-        }
-        ListFooterComponent={
-          <View style={listFooterStyles.container}>
-            <TouchableOpacity
-              style={listFooterStyles.button}
-              onPress={handleSubmit}
-            >
-              <Text style={listFooterStyles.buttonTitle}>Submit</Text>
-            </TouchableOpacity>
-          </View>
-        }
       />
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Submit</Text>
+      </TouchableOpacity>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 5,
+    backgroundColor: 'white',
+    flex: 1,
+  },
+  title: {
+    marginBottom: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    padding: 10,
+    borderRadius: 5,
+  },
+  button: {
+    height: 40,
+    padding: 8,
+    borderRadius: 10,
+    backgroundColor: 'teal',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+  },
+})
 
 const listStyles = StyleSheet.create({
   separator: {
@@ -250,33 +262,6 @@ const listItemStyles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-})
-
-const listHeaderStyles = StyleSheet.create({
-  container: { padding: 5, marginBottom: 10 },
-  title: { marginBottom: 10 },
-  input: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    padding: 5,
-    borderRadius: 5,
-  },
-})
-
-const listFooterStyles = StyleSheet.create({
-  container: {
-    padding: 5,
-  },
-  button: {
-    borderRadius: 10,
-    backgroundColor: '#53777A',
-    padding: 8,
-    alignItems: 'center',
-  },
-  buttonTitle: {
-    fontSize: 18,
-    color: 'white',
   },
 })
 

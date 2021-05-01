@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   listHeaderTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#53777A',
+    color: 'teal',
   },
 })
 export default Home
