@@ -1,11 +1,11 @@
 import { useRoute } from '@react-navigation/core'
 import React, { FC } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
-import { ColorPaletteProps } from '../route'
+import { ColorPaletteRouteProp } from '../route'
 import { ColorBox } from '../components/ColorBox'
 
 const ColorPalette: FC = () => {
-  const route = useRoute<ColorPaletteProps['route']>()
+  const route = useRoute<ColorPaletteRouteProp>()
 
   return (
     <FlatList

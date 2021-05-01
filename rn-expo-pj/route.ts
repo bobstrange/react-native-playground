@@ -1,7 +1,12 @@
-import { StackScreenProps } from '@react-navigation/stack'
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
+import {
+  CompositeNavigationProp,
+  NavigatorScreenParams,
+  RouteProp,
+} from '@react-navigation/native'
 
 export type RootStackParams = {
-  Main: undefined
+  Main: NavigatorScreenParams<MainStackParams>
   AddNewPalette: undefined
 }
 
@@ -16,8 +21,14 @@ export type MainStackParams = {
   }
 }
 
-export type HomeProps = StackScreenProps<MainStackParams, 'Home'>
-export type ColorPaletteProps = StackScreenProps<
-  MainStackParams,
-  'ColorPalette'
+export type HomeNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<MainStackParams, 'Home'>,
+  StackNavigationProp<RootStackParams>
 >
+export type HomeRouteProp = RouteProp<MainStackParams, 'Home'>
+
+export type ColorPaletteNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<MainStackParams, 'ColorPalette'>,
+  StackNavigationProp<RootStackParams>
+>
+export type ColorPaletteRouteProp = RouteProp<MainStackParams, 'ColorPalette'>

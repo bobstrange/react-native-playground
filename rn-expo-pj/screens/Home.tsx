@@ -8,7 +8,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
-import { HomeProps } from '../route'
+import { HomeNavigationProp } from '../route'
 
 type Color = {
   colorName: string
@@ -78,7 +78,7 @@ const Home: FC = () => {
     handleUpdateColorPalettes()
   }, [handleUpdateColorPalettes])
 
-  const navigation = useNavigation<HomeProps['navigation']>()
+  const navigation = useNavigation<HomeNavigationProp>()
   return (
     <View>
       <FlatList
