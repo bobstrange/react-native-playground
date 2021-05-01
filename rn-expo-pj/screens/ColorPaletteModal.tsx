@@ -180,7 +180,7 @@ const ColorPaletteModal: FC = () => {
 
     const newColorPalette: ColorPalette = {
       paletteName: colorName,
-      colors: [],
+      colors: selectedColors,
     }
 
     navigation.navigate('Home', { newColorPalette })
