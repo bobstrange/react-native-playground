@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation, useRoute } from '@react-navigation/core'
 import Axios from 'axios'
 import React, { FC, useCallback, useEffect, useState } from 'react'
 import {
@@ -8,7 +8,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
-import { HomeNavigationProp } from '../route'
+import { HomeNavigationProp, HomeRouteProp } from '../route'
 
 type Color = {
   colorName: string
@@ -61,7 +61,15 @@ const useRefresh = (
 }
 
 const Home: FC = () => {
-  const [colorPalettes, setColorPalettes] = useState<ColorPalette[]>()
+  const route = useRoute<HomeRouteProp>()
+  const newColorPalette = route.params?.newColorPalette
+  const [colorPalettes, setColorPalettes] = useState<ColorPalette[]>([])
+
+  useEffect(() => {
+    if (newColorPalette) {
+      setColorPalettes((current) => [newColorPalette, ...current])
+    }
+  }, [newColorPalette])
 
   const handleUpdateColorPalettes = useCallback(async () => {
     const res = await Axios.get<ColorPalette[]>(
