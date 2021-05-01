@@ -8,18 +8,9 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
+
 import { HomeNavigationProp, HomeRouteProp } from '../route'
-
-type Color = {
-  colorName: string
-  hexCode: string
-}
-
-type ColorPalette = {
-  paletteName: string
-  colors: Color[]
-}
-
+import { ColorPalette } from '../types'
 const PalettePreview: FC<{ palette: ColorPalette; onPress: () => void }> = ({
   palette,
   onPress,

@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
 } from 'react-native-gesture-handler'
 import { AddNewPaletteNavigationProp } from '../route'
+import { ColorPalette } from '../types'
 
 const COLORS = [
   { colorName: 'AliceBlue', hexCode: '#F0F8FF' },
@@ -159,7 +160,7 @@ const COLORS = [
 
 const ColorPaletteModal: FC = () => {
   const navigation = useNavigation<AddNewPaletteNavigationProp>()
-  const [state, setState] = useState<{ [k: number]: boolean }>({})
+  const [selectedColors, setSelectedColors] = useState<[]>({})
   const [colorName, setColorName] = useState('')
 
   const handleChangeColorName: TextInputProps['onChangeText'] = (text) => {
@@ -171,31 +172,33 @@ const ColorPaletteModal: FC = () => {
       Alert.alert('Please enter a palette name')
       return
     }
-    if (Object.entries(state).filter(([_, enabled]) => enabled).length < 3) {
+    if (
+      Object.entries(selectedColors).filter(([_, enabled]) => enabled).length <
+      3
+    ) {
       Alert.alert('', 'Please select at least 3 colors.')
       return
     }
 
-    const newColorPalette: {
-      paletteName: string
-      colors: { colorName: string; hexCode: string }[]
-    } = {
+    const newColorPalette: ColorPalette = {
       paletteName: colorName,
       colors: [],
     }
 
     navigation.navigate('Home', { newColorPalette })
-  }, [navigation, colorName, state])
+  }, [navigation, colorName, selectedColors])
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Name of your color palette</Text>
-      <TextInput
-        style={styles.input}
-        value={colorName}
-        placeholder="Palette name"
-        onChangeText={handleChangeColorName}
-      />
+      <View style={styles.inputContainer}>
+        <Text style={styles.title}>Name of your color palette</Text>
+        <TextInput
+          style={styles.input}
+          value={colorName}
+          placeholder="Palette name"
+          onChangeText={handleChangeColorName}
+        />
+      </View>
       <FlatList
         data={COLORS}
         keyExtractor={({ hexCode }) => hexCode}
@@ -204,12 +207,12 @@ const ColorPaletteModal: FC = () => {
             <Text>{item.colorName}</Text>
             <Switch
               onValueChange={() =>
-                setState((current) => ({
+                setSelectedColors((current) => ({
                   ...current,
                   [index]: !current[index],
                 }))
               }
-              value={state[index]}
+              value={selectedColors[index]}
             />
           </View>
         )}
@@ -227,6 +230,9 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
     flex: 1,
+  },
+  inputContainer: {
+    marginBottom: 10,
   },
   title: {
     marginBottom: 10,

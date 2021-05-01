@@ -5,6 +5,8 @@ import {
   RouteProp,
 } from '@react-navigation/native'
 
+import { ColorPalette, Color } from './types'
+
 export type RootStackParams = {
   Main: NavigatorScreenParams<MainStackParams>
   AddNewPalette: undefined
@@ -21,16 +23,10 @@ export type AddNewPaletteNavigationProp = CompositeNavigationProp<
 export type MainStackParams = {
   Home:
     | {
-        newColorPalette: {
-          paletteName: string
-          colors: { colorName: string; hexCode: string }[]
-        }
+        newColorPalette: ColorPalette
       }
     | undefined
-  ColorPalette: {
-    paletteName: string
-    colors: { colorName: string; hexCode: string }[]
-  }
+  ColorPalette: ColorPalette
 }
 
 export type HomeNavigationProp = CompositeNavigationProp<
