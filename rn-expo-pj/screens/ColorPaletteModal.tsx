@@ -1,6 +1,10 @@
 import React, { FC } from 'react'
 import { Text, View, FlatList, StyleSheet } from 'react-native'
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler'
+import {
+  Switch,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native-gesture-handler'
 
 const COLORS = [
   { colorName: 'AliceBlue', hexCode: '#F0F8FF' },
@@ -17,6 +21,7 @@ const ColorPaletteModal: FC = () => {
         renderItem={({ item }) => (
           <View style={listItemStyles.container}>
             <Text>{item.colorName}</Text>
+            <Switch />
           </View>
         )}
         ItemSeparatorComponent={() => <View style={listStyles.separator} />}
@@ -52,6 +57,10 @@ const listItemStyles = StyleSheet.create({
   container: {
     paddingVertical: 10,
     paddingHorizontal: 10,
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 })
 
