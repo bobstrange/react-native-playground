@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TextInputProps,
   Alert,
-  SwitchProps,
 } from 'react-native'
 import {
   Switch,
@@ -213,7 +212,15 @@ const ColorPaletteModal: FC = () => {
         keyExtractor={({ hexCode }) => hexCode}
         renderItem={({ item }) => (
           <View style={listItemStyles.container}>
-            <Text>{item.colorName}</Text>
+            <View style={listItemStyles.color}>
+              <View
+                style={[
+                  listItemStyles.colorBox,
+                  { backgroundColor: item.hexCode },
+                ]}
+              />
+              <Text>{item.colorName}</Text>
+            </View>
             <Switch
               onValueChange={(selected) => handleValueChange(selected, item)}
               value={
@@ -281,6 +288,18 @@ const listItemStyles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  color: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  colorBox: {
+    height: 30,
+    width: 30,
+    shadowColor: '#000',
+    borderWidth: 1,
+    borderColor: '#bbb',
+    marginRight: 15,
   },
 })
 
