@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
 import { Title, TextInput, Button } from "react-native-paper";
+import { auth } from "../../firebase";
 import { LoginScreenNavigationProp } from "../../navigations/AuthStack";
 
 const styles = StyleSheet.create({
@@ -22,6 +23,17 @@ const styles = StyleSheet.create({
 export const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const signin = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log("Signin success");
+      })
+      .catch((e) => {
+        console.error(e.message);
+      });
+  };
 
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
@@ -48,7 +60,7 @@ export const LoginScreen = () => {
         <Button
           mode="contained"
           style={[styles.pSm, styles.mb]}
-          onPress={() => {}}
+          onPress={signin}
         >
           Login
         </Button>
