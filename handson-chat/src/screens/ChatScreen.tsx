@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useLayoutEffect } from "react";
+import React, { useState, useCallback, useLayoutEffect } from "react";
 import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 import { Button } from "react-native-paper";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 });
 
 type User = {
-  _id: number;
+  _id: string | null | undefined;
   name: string;
   avatar: string;
 };
@@ -34,7 +34,7 @@ export const ChatScreen = () => {
         console.log("Sign out success");
       })
       .catch((e) => {
-        console.log("e.message");
+        console.error(e.message);
       });
   };
 
@@ -44,27 +44,37 @@ export const ChatScreen = () => {
     });
   });
 
-  const [messages, setMessages] = React.useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
-  React.useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello developer",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
+  useLayoutEffect(() => {
+    const unsubscribe = db
+      .collection("chats")
+      .orderBy("createdAt")
+      .onSnapshot((snapshot) => {
+        const res = snapshot.docs.map((doc) => {
+          return {
+            _id: doc.data()._id,
+            createdAt: doc.data().createdAt.toDate(),
+            text: doc.data().text,
+            user: doc.data().user,
+          };
+        });
+        setMessages(res);
+      });
+    return unsubscribe;
   }, []);
 
-  const onSend = React.useCallback((messages = []) => {
+  const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
+    const { _id, createdAt, text, user } = messages[0];
+    db.collection("chats").add({
+      _id,
+      createdAt,
+      text,
+      user,
+    });
   }, []);
 
   return (
@@ -74,7 +84,7 @@ export const ChatScreen = () => {
         placeholder="メッセージを入力してください..."
         onSend={onSend}
         user={{
-          _id: 1,
+          _id: auth?.currentUser?.email || "",
           name: "Me",
           avatar: "https://placeimg.com/140/140/any",
         }}
