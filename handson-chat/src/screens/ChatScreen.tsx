@@ -1,6 +1,9 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/core";
+import React, { useLayoutEffect } from "react";
 import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
+import { Button } from "react-native-paper";
+import { auth } from "../../firebase";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +25,25 @@ type Message = {
 };
 
 export const ChatScreen = () => {
+  const navigation = useNavigation();
+
+  const signout = () => {
+    auth
+      .signOut()
+      .then(() => {
+        console.log("Sign out success");
+      })
+      .catch((e) => {
+        console.log("e.message");
+      });
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button onPress={signout}>Logout</Button>,
+    });
+  });
+
   const [messages, setMessages] = React.useState<Message[]>([]);
 
   React.useEffect(() => {
