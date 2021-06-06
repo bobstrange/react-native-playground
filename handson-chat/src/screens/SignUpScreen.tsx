@@ -1,6 +1,9 @@
+import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
 import { Title, TextInput, Button } from "react-native-paper";
+import { auth } from "../../firebase";
+import { SignUpScreenNavigationProp } from "../../navigations/AuthStack";
 
 const styles = StyleSheet.create({
   flex: {
@@ -20,6 +23,19 @@ const styles = StyleSheet.create({
 export const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigation = useNavigation<SignUpScreenNavigationProp>();
+
+  const signup = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log("Register success");
+      })
+      .catch((e) => {
+        console.error(e.message);
+      });
+  };
 
   return (
     <SafeAreaView style={styles.flex}>
@@ -43,11 +59,16 @@ export const SignUpScreen = () => {
         <Button
           mode="contained"
           style={[styles.pSm, styles.mb]}
-          onPress={() => {}}
+          onPress={signup}
         >
           Register
         </Button>
-        <Button style={[styles.pSm, styles.mb]} onPress={() => {}}>
+        <Button
+          style={[styles.pSm, styles.mb]}
+          onPress={() => {
+            navigation.navigate("Login");
+          }}
+        >
           Login as an exiting account
         </Button>
       </View>

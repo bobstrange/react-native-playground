@@ -12,6 +12,16 @@ export type AuthStackParamList = {
   SignUp: undefined;
 };
 
+export type LoginScreenNavigationProp = StackNavigationProp<
+  AuthStackParamList,
+  "Login"
+>;
+
+export type SignUpScreenNavigationProp = StackNavigationProp<
+  AuthStackParamList,
+  "SignUp"
+>;
+
 const Stack = createStackNavigator<AuthStackParamList>();
 
 export const AuthStack = () => {

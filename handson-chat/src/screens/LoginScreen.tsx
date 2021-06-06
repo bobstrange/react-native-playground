@@ -52,7 +52,12 @@ export const LoginScreen = () => {
         >
           Login
         </Button>
-        <Button style={[styles.pSm, styles.mb]} onPress={() => {}}>
+        <Button
+          style={[styles.pSm, styles.mb]}
+          onPress={() => {
+            navigation.navigate("SignUp");
+          }}
+        >
           Create an account
         </Button>
       </View>
