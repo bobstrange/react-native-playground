@@ -1,6 +1,12 @@
 import React from "react";
-import { ChatScreen } from "./src/screens/ChatScreen";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { MainStack } from "./navigations/MainStack";
 
 export default function App() {
-  return <ChatScreen />;
+  return (
+    <NavigationContainer>
+      <MainStack />
+    </NavigationContainer>
+  );
 }
