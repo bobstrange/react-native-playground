@@ -1,6 +1,8 @@
+import { useNavigation } from "@react-navigation/core";
 import React, { useState } from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
 import { Title, TextInput, Button } from "react-native-paper";
+import { LoginScreenNavigationProp } from "../../navigations/AuthStack";
 
 const styles = StyleSheet.create({
   flex: {
@@ -20,6 +22,8 @@ const styles = StyleSheet.create({
 export const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigation = useNavigation<LoginScreenNavigationProp>();
 
   return (
     <SafeAreaView style={styles.flex}>

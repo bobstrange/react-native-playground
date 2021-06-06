@@ -1,14 +1,18 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  StackNavigationProp,
+} from "@react-navigation/stack";
+
 import { LoginScreen } from "../src/screens/LoginScreen";
 import { SignUpScreen } from "../src/screens/SignUpScreen";
 
-type AuthNavigationParam = {
+export type AuthStackParamList = {
   Login: undefined;
   SignUp: undefined;
 };
 
-const Stack = createStackNavigator<AuthNavigationParam>();
+const Stack = createStackNavigator<AuthStackParamList>();
 
 export const AuthStack = () => {
   return (
